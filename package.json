@@ -1,0 +1,12 @@
+{
+  "name": "gcleaner",
+  "title": "gcleaner",
+  "id": "jid1-MuGkrwmXmaaF9w",
+  "description": " remove google links to speed page loading for GFW ",
+  "author": {
+      "name": "liujiacai",
+      "email": "jiacai2050@gmail.com"
+  },
+  "license": "MPL 2.0",
+  "version": "0.1"
+}
