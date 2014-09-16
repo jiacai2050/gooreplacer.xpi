@@ -1,11 +1,21 @@
-var googleLink = new RegExp('google');
-var ss = document.getElementsByTagName('script');
+function process(link, replacement, tag) {
 
-for(i=0; i<ss.length; i++) {
-    var script = ss[i];
-    if(script.src && script.src.match(googleLink)) {
-        script.parentNode.removeChild(script);
-        //script.src="http://mat1.gtimg.com/www/asset/lib/jquery/jquery/jquery-1.11.1.min.js";
+    var linkReg = new RegExp(link);
+    var results = document.getElementsByTagName(tag);
+    
+    for(i=0; i<results.length; i++) {
+        var element = results[i];
+        if( tag === "script") {
+            if(element.src && element.src.match(linkReg)) {
+                //script.parentNode.removeChild(script);
+               element.src = element.src.replace(linkReg, replacement);
+            }
+        } else if ( tag === "link") {
+            if(element.href && element.href.match(linkReg)) {
+               element.href = element.href.replace(linkReg, replacement);
+            }
+        }
     }
 }
-console.log(ss.length);
+process("ajax.googleapis.com", "ajax.useso.com", "script");
+process("fonts.googleapis.com", "fonts.useso.com", "link");
