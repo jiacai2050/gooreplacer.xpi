@@ -1,7 +1,14 @@
+WARNING
+==
+Now this addon can actually replace google link but in vain!
+those google links still load!
+I am struggling with [ContentPolocy](https://developer.mozilla.org/en-US/docs/Mozilla/Tech/XPCOM/Reference/Interface/nsIContentPolicy) to solve it. 
+
+
 Gcleaner
 ===
 
-a firefox addon for removing google link to speed page loading.
+a firefox addon for replacing google link to speed page loading.
 
 As every Chinese know, Google has been blocked, which causes some websites that refer google js and font load toooo slow.
 
