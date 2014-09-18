@@ -3,10 +3,17 @@ gooreplacer
 
 [Mozilla ADD-ONS地址](https://addons.mozilla.org/zh-CN/firefox/addon/gooreplacer/)
 
+
 A replacer for google fonts/api/themes.... to load page faster!
 
 一个用于替换网页中Google Fonts,API,themes等的Firefox插件，让你快速打开这些页面！
 
+GFW
+===
+<img src="http://img01.taobaocdn.com/imgextra/i1/581166664/TB2Mtb7apXXXXc2XXXXXXXXXXXX_!!581166664.png" alt=" gooreplacer-rejected"/>
+第一次上传插件时遇到的问题，我已经回复邮件向Mozilla Add-on的reviewers说明了GFW在天朝的功能，希望他们能够理解并通过审查。
+
+为了防止审查不通过，大家可以直接下载gooreplacer.xpi文件，自行安装。
 
 Development
 ===
