@@ -3,4 +3,4 @@
 #https://addons.mozilla.org/en-US/firefox/addon/autoinstaller/
 #For test
 cfx xpi
-wget --post-file=gcleaner.xpi http://localhost:8888
+wget --post-file=gooreplacer.xpi http://localhost:8888
