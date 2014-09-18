@@ -1,37 +1,20 @@
-WARNING
-==
-<del>
-Now gcleaner can actually replace google link but in vain!
-
-those google links still load!
-</del>
-
-Now gcleaner can remove scripts(also stop loading) referring http://ajax.googleapis.com 
-
-But cannot feed page with equivalent scripts!
-
-I am struggling with [ContentPolocy](https://developer.mozilla.org/en-US/docs/Mozilla/Tech/XPCOM/Reference/Interface/nsIContentPolicy) to solve it. 
-
-
-Gcleaner
+gooreplacer
 ===
 
-a firefox addon for replacing google link to speed page loading.
+A replacer for google fonts/api/themes.... to load page faster!
 
-As every Chinese know, Google has been blocked, which causes some websites that refer google js and font load toooo slow.
+一个用于替换网页中Google Fonts,API,themes等的Firefox插件，让你快速打开这些页面！
 
-so this addon is here.
 
-Develop
+Development
 ===
 
-This addon use [Mozilla SDK](https://developer.mozilla.org/en-US/Add-ons/SDK) for developing
+- 使用[Mozilla SDK](https://developer.mozilla.org/en-US/Add-ons/SDK)开发
+- 使用[科大公共库](https://servers.ustclug.org/2014/07/ustc-blog-force-google-fonts-proxy/)开替换Google资源
 
-<del>Besides, I use [360 common lib](http://libs.useso.com/) to replace google links. </del>
 
-
-TO DO
+TO-DO
 ===
 
-1. After remove google script, feed page with equivalent scripts!
-2. a panel for user configuration
+1. <del>可以禁用Google资源，但没法替换相应的资源</del>
+2. 用户配置面板
