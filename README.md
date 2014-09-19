@@ -19,7 +19,7 @@ Development
 ===
 
 - 使用[Mozilla SDK](https://developer.mozilla.org/en-US/Add-ons/SDK)开发
-- 使用[科大公共库](https://servers.ustclug.org/2014/07/ustc-blog-force-google-fonts-proxy/)开替换Google资源
+- 使用[科大公共库](https://servers.ustclug.org/2014/07/ustc-blog-force-google-fonts-proxy/)开替换Google资源,之前曾使用360公共库，但是[360并不支持https访问](https://servers.ustclug.org/2014/06/blog-googlefonts-speedup/)，所以最终选择了科大。
 
 
 TEST
@@ -29,6 +29,8 @@ TEST
 
 1. https://fonts.googleapis.com/css?family=Open+Sans
 2. https://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js
+3. http://fonts.googleapis.com/css?family=Open+Sans
+4. http://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js
 
 如果能转到lug.ustc.edu.cn相应的资源即说明跳转成功。
 
