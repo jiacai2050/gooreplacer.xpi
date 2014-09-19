@@ -3,6 +3,7 @@ gooreplacer
 
 [Mozilla ADD-ONS地址](https://addons.mozilla.org/zh-CN/firefox/addon/gooreplacer/)
 
+[Chrome版](https://github.com/jiacai2050/gooreplacer4chrome)
 
 A replacer for google fonts/api/themes.... to load page faster!
 
@@ -19,7 +20,7 @@ Development
 ===
 
 - 使用[Mozilla SDK](https://developer.mozilla.org/en-US/Add-ons/SDK)开发
-- 使用[科大公共库](https://servers.ustclug.org/2014/07/ustc-blog-force-google-fonts-proxy/)开替换Google资源，之前曾使用360公共库，但是[360并不支持https访问](https://servers.ustclug.org/2014/06/blog-googlefonts-speedup/)，所以最终选择了科大。
+- 使用[科大公共库](https://servers.ustclug.org/2014/07/ustc-blog-force-google-fonts-proxy/)替换Google资源，之前曾使用360公共库，但是[360并不支持https访问](https://servers.ustclug.org/2014/06/blog-googlefonts-speedup/)，所以最终选择了科大。
 
 
 TEST
@@ -41,7 +42,7 @@ TO-DO
 ===
 
 1. <del>可以禁用Google资源，但没法替换相应的资源</del>
-2. gooreplacer FOR Chrome
+2. <del>gooreplacer FOR Chrome</del> [Chrome版](https://github.com/jiacai2050/gooreplacer4chrome)
 3. 用户配置面板
 
 VERSION
