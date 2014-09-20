@@ -3,8 +3,8 @@
   "title": "gooreplacer",
   "id": "gooreplacer@liujiacai.net",
   "description": "一个用于替换网页中Google Fonts/API/themes等的Firefox插件，让你快速打开引用这些资源的页面",
-  "author": "http://liujiacai.net",
-  "homepage": "https://github.com/jiacai2050/gooreplacer",
+  "author": "liujiacai",
+  "homepage": "http://liujiacai.net/gooreplacer",
   "license": "MPL 2.0",
-  "version": "0.1.2"
+  "version": "0.2"
 }
