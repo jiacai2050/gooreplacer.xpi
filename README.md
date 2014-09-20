@@ -55,5 +55,7 @@ VERSION
 - 0.1 首次发布
 - 0.1.1 根据Mozilla reviewer的建议，使用tab模块来关闭Observer
 - 0.1.2 当FF中打开并关闭一个tab后，无法跳转链接，原因是关闭Observer的方式不对。现改用windows模块来关闭Observer
+- 0.2 增加官方主页
+- 0.3 修改重定向规则，取消*通配符
 - ...
 - 更多功能，等你来开发 
