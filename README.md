@@ -6,7 +6,7 @@ http://liujiacai.net/gooreplacer
 gooreplacer
 ===
 
-[Mozilla ADD-ONS地址][addons]
+[Mozilla ADD-ONS地址](https://addons.mozilla.org/zh-CN/firefox/addon/gooreplacer/)
 
 [Chrome版](https://github.com/jiacai2050/gooreplacer4chrome)
 
@@ -27,7 +27,7 @@ GFW
 INSTALL
 ===
 
-用户在[Mozilla ADD-ONS][addons]安装gooreplacer后，如果想要进行google资源重定向，需要在配置项中开启，步骤如下三步：
+用户在[Mozilla ADD-ONS](https://addons.mozilla.org/zh-CN/firefox/addon/gooreplacer/)安装gooreplacer后，如果想要进行google资源重定向，需要在配置项中开启，步骤如下三步：
 
 1. 在Firefox中输入，about:addons，打开插件控制面板
 2. 找到gooreplacer插件，点击配置<img src="http://img02.taobaocdn.com/imgextra/i2/581166664/TB2_T3sapXXXXXSXpXXXXXXXXXX_!!581166664.png" alt=" config"/>
@@ -74,4 +74,3 @@ VERSION
 - ...
 - 更多功能，等你来开发 
 
-[addons]: [https://addons.mozilla.org/zh-CN/firefox/addon/gooreplacer/] "Mozilla插件中心"
