@@ -19,9 +19,6 @@ GFW
 <img src="http://img01.taobaocdn.com/imgextra/i1/581166664/TB2Mtb7apXXXXc2XXXXXXXXXXXX_!!581166664.png" alt=" gooreplacer-rejected"/>
 第一次上传插件时遇到的问题，我已经回复邮件向Mozilla Add-on的reviewers说明了GFW在天朝的功能，希望他们能够理解并通过审查。
 
-<img src="http://img03.taobaocdn.com/imgextra/i3/581166664/TB2PFAsapXXXXaqXpXXXXXXXXXX_!!581166664.png" alt=" rejected-again"/>
-提交再一次被拒了，不过这次的reviewer建议我做个用户选项，让用户决定是否进行重定向，所以有了下面的INSTALL。
-
 <del>为了防止审查不通过，大家可以直接下载本代码库的gooreplacer.xpi文件，自行安装。</del>
 
 Mozilla的审查真是严格，不过gooreplacer终于在v0.4通过了审查！Bravo！ ----2014.09.21
@@ -63,7 +60,7 @@ TO-DO
 
 1. <del>可以禁用Google资源，但没法替换相应的资源</del>
 2. <del>gooreplacer FOR Chrome</del>  [Chrome版](https://github.com/jiacai2050/gooreplacer4chrome)
-3. <del>用户配置面板<del> v0.4
+3. <del>用户配置面板</del> v0.4
 
 VERSION
 ===
@@ -72,7 +69,7 @@ VERSION
 - 0.1.2 当FF中打开并关闭一个tab后，无法跳转链接，原因是关闭Observer的方式不对。现改用windows模块来关闭Observer
 - 0.2 增加官方主页
 - 0.3 修改重定向规则，取消\*通配符
-- 0.4 增加用户选项isRedirect
+- 0.4 增加用户选项isRedirect，通过Mozilla的官方审查
 - ...
 - 更多功能，等你来开发 
 
