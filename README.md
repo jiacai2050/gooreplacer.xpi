@@ -22,12 +22,14 @@ GFW
 <img src="http://img03.taobaocdn.com/imgextra/i3/581166664/TB2PFAsapXXXXaqXpXXXXXXXXXX_!!581166664.png" alt=" rejected-again"/>
 提交再一次被拒了，不过这次的reviewer建议我做个用户选项，让用户决定是否进行重定向，所以有了下面的INSTALL。
 
-为了防止审查不通过，大家可以直接下载本代码库的gooreplacer.xpi文件，自行安装。
+<del>为了防止审查不通过，大家可以直接下载本代码库的gooreplacer.xpi文件，自行安装。</del>
+
+Mozilla的审查真是严格，不过gooreplacer终于在v0.4通过了审查！Bravo！ ----2014.09.21
 
 INSTALL
 ===
 
-用户在[Mozilla ADD-ONS](https://addons.mozilla.org/zh-CN/firefox/addon/gooreplacer/)安装gooreplacer后，如果想要进行google资源重定向，需要在配置项中开启，步骤如下三步：
+用户在[Mozilla ADD-ONS](https://addons.mozilla.org/zh-CN/firefox/addon/gooreplacer/)安装gooreplacer后，如果想要进行google资源重定向，需要在配置项中开启，步骤如下：
 
 1. 在Firefox中输入，about:addons，打开插件控制面板
 2. 找到gooreplacer插件，点击配置<img src="http://img02.taobaocdn.com/imgextra/i2/581166664/TB2_T3sapXXXXXSXpXXXXXXXXXX_!!581166664.png" alt=" config"/>
