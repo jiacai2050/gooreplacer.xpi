@@ -23,6 +23,10 @@ GFW
 
 Mozilla的审查真是严格，不过gooreplacer终于在v0.4通过了审查！Bravo！ ----2014.09.21
 
+WARN
+===
+因本扩展使用的[redirectTo](https://developer.mozilla.org/en-US/docs/Mozilla/Tech/XPCOM/Reference/Interface/nsIHttpChannel#redirectTo%28%29)方法限制，只支持[Firefox 20及以上](https://developer.mozilla.org/en-US/docs/Mozilla/Gecko/Versions)的版本。
+
 INSTALL
 ===
 
@@ -61,6 +65,7 @@ TO-DO
 1. <del>可以禁用Google资源，但没法替换相应的资源</del>
 2. <del>gooreplacer FOR Chrome</del>  [Chrome版](https://github.com/jiacai2050/gooreplacer4chrome)
 3. <del>用户配置面板</del> v0.4
+4. 用户可以自定义替换规则
 
 VERSION
 ===
