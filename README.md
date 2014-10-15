@@ -14,15 +14,6 @@ A replacer for google fonts/api/themes.... to load page faster!
 
 一个用于替换网页中Google Fonts,API,themes等的Firefox插件，让你快速打开这些页面！
 
-GFW
-===
-<img src="http://img01.taobaocdn.com/imgextra/i1/581166664/TB2Mtb7apXXXXc2XXXXXXXXXXXX_!!581166664.png" alt=" gooreplacer-rejected"/>
-第一次上传插件时遇到的问题，我已经回复邮件向Mozilla Add-on的reviewers说明了GFW在天朝的功能，希望他们能够理解并通过审查。
-
-<del>为了防止审查不通过，大家可以直接下载本代码库的gooreplacer.xpi文件，自行安装。</del>
-
-Mozilla的审查真是严格，不过gooreplacer终于在v0.4通过了审查！Bravo！ ----2014.09.21
-
 WARN
 ===
 因本扩展使用的[redirectTo](https://developer.mozilla.org/en-US/docs/Mozilla/Tech/XPCOM/Reference/Interface/nsIHttpChannel#redirectTo%28%29)方法限制，只支持[Firefox 20及以上](https://developer.mozilla.org/en-US/docs/Mozilla/Gecko/Versions)的版本。
@@ -67,6 +58,17 @@ TO-DO
 3. <del>用户配置面板</del> v0.4
 4. 用户可以自定义替换规则
 
+现在已经增加自定义规则功能,如下图
+<img src="http://img04.taobaocdn.com/imgextra/i4/581166664/TB2l5EGaFXXXXaTXXXXXXXXXXXX_!!581166664.png" alt=" redirectFile"/>
+在这里选择自定义文件，自定义文件格式为：
+<from_url>,<to_url>
+<from_url>,<to_url>
+<from_url>,<to_url>
+....
+原始URL与跳转URL用英文状态下的逗号分割开，可以定义多组规则
+
+大家觉得这个功能如何呢？现在这个版本还没发布，大家可以通过直接下载[gooreplacer.xpi](https://github.com/jiacai2050/gooreplacer/raw/dev/gooreplacer.xpi)尝鲜 :-)
+
 VERSION
 ===
 - 0.1 首次发布
@@ -74,7 +76,7 @@ VERSION
 - 0.1.2 当FF中打开并关闭一个tab后，无法跳转链接，原因是关闭Observer的方式不对。现改用windows模块来关闭Observer
 - 0.2 增加官方主页
 - 0.3 修改重定向规则，取消\*通配符
-- 0.4 增加用户选项isRedirect，通过Mozilla的官方审查
+- 0.4 增加用户选项isRedirect，通过Mozilla的官方审查 ----2014.09.21
 - ...
 - 更多功能，等你来开发 
 
