@@ -58,17 +58,11 @@ TO-DO
 3. <del>用户配置面板</del> v0.4
 4. 用户可以自定义替换规则
 
+try
+===
 现在已经增加自定义规则功能,如下图
-<img src="http://img04.taobaocdn.com/imgextra/i4/581166664/TB2l5EGaFXXXXaTXXXXXXXXXXXX_!!581166664.png" alt=" redirectFile"/>
 
-在这里选择自定义文件，自定义文件格式为：
-```
-<from_url>,<to_url>
-<from_url>,<to_url>
-<from_url>,<to_url>
-....
-```
-原始URL与跳转URL用英文状态下的逗号分割开，可以定义多组规则
+<img src="http://img02.taobaocdn.com/imgextra/i2/581166664/TB2aFZ9aFXXXXb2XXXXXXXXXXXX_!!581166664.png" alt=" setting"/>
 
 大家觉得这个功能如何呢？现在这个版本还没发布，大家可以通过直接下载[gooreplacer.xpi](https://github.com/jiacai2050/gooreplacer/raw/dev/gooreplacer.xpi)尝鲜 :-)
 
