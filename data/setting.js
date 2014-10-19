@@ -1,9 +1,9 @@
 //document.body.style.border = "5px solid red";
 var getLabel = function(status) {
     if (status == "true") {
-        return "禁用";
+        return "停用";
     } else {
-        return "启用";
+        return "开启";
     }
 }
 $(function() {
@@ -11,15 +11,21 @@ $(function() {
         $("#list").html("");
         var html = [];
         for(key in data) {
-            var rowHTML = ["<tr>",
+            var rowHTML = [];
+            if (data[key].enable) {
+                rowHTML.push("<tr>");
+            } else {
+                rowHTML.push("<tr class='disable'>");
+            }
+            rowHTML.push(
                 "<td>"+key+"</td>",
                 "<td>----></td>",
                 "<td>"+data[key].dstURL+"</td>",
                 "<td><input type=button id=change"+key+" value="+data[key].enable+"></td>",
                 "<td><input type=button id=del"+key+" value='删除'></td>",
-                "</tr>"].join("");
+            "</tr>");
                 
-            $("#list").append(rowHTML);
+            $("#list").append(rowHTML.join(""));
         } 
         $("input[id^=del]").each(function() {
             var key = this.id.substring(3);

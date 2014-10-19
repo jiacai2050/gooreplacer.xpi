@@ -6,12 +6,12 @@
   "author": "liujiacai",
   "homepage": "http://liujiacai.net/gooreplacer",
   "license": "MPL 2.0",
-  "version": "0.4.7",
+  "version": "0.5",
   
   "preferences": [{
       "name": "isRedirect",
       "title": "开启重定向",
-      "description": "是否允许把googleapis的资源重定向到USTC",
+      "description": "是否允许进行资源重定向",
       "type": "bool",
       "value": false
   }, {
