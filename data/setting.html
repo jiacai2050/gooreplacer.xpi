@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>gooreplacer自定义规则</title>
+    <link rel="shortcut icon" href="gooreplacer.ico" />
+    <meta charset="utf-8">
+    <style type="text/css">
+    body {
+        background: -moz-linear-gradient(center top , #afcffe, #fff) no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+        font-family: Tahoma,Arial,sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        min-height: 100%;
+        padding: 0;
+    }
+    .line {
+        border-style:dotted;
+        border-color:red;
+        border-width:5;
+        width:100%;
+        height:0
+    }
+    .title {
+        display:inline-block;
+        color: #555;
+        letter-spacing: 2px;
+        padding: 0;
+        text-shadow: 0 0 15px white;
+    }
+    .disable {
+        color: #AAA;
+    }
+    </style>
+    
+
+</head>
+<body>
+<div align="center">
+<h1 class="title">gooreplacer</h1>&nbsp;&nbsp;&nbsp;&nbsp;<h5 class="title">想去哪儿，就去哪儿</h5>
+</div>
+<table id="rules" align="center">
+    <tr>
+        <th>
+            原始URL
+        </th>
+        <th></th>    
+        <th>
+            目的URL
+        </th>    
+    </tr>
+
+</table>
+<table align="center">
+    <tr>
+        <td colspan="3" align="center">
+            <input type="button" id="more" value="更多" />
+            <input type="button" id="ok" value="确定" />
+        </td>    
+
+    </tr>
+</table>
+<div class="line"></div>
+<div align="center">
+<h2 class="title">系统中已有以下规则</h2>
+</div>
+<table id="list" align="center"></table>
+</body>
+</html>
