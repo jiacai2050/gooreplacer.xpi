@@ -1,4 +1,11 @@
 //document.body.style.border = "5px solid red";
+var getLabel = function(status) {
+    if (status == "true") {
+        return "禁用";
+    } else {
+        return "启用";
+    }
+}
 $(function() {
     self.port.on("init", function(data) {
         $("#list").html("");
@@ -7,7 +14,8 @@ $(function() {
             var rowHTML = ["<tr>",
                 "<td>"+key+"</td>",
                 "<td>----></td>",
-                "<td>"+data[key]+"</td>",
+                "<td>"+data[key].dstURL+"</td>",
+                "<td><input type=button id=change"+key+" value="+data[key].enable+"></td>",
                 "<td><input type=button id=del"+key+" value='删除'></td>",
                 "</tr>"].join("");
                 
@@ -21,6 +29,13 @@ $(function() {
                 };
             }
         });    
+        $("input[id^=change]").each(function() {
+            var key = this.id.substring(6);
+            this.value = getLabel(this.value);
+            this.onclick = function() {
+                self.port.emit("change", key);    
+            }
+        });
     });
     $("#ok").click(function() {
         var rules = {};
@@ -29,13 +44,15 @@ $(function() {
             if(this.value.trim() !== "") {
                 var dstURL = this.id.replace("srcURL", "dstURL");
                 var value = $("#" + dstURL).val();
-                rules[this.value] = value;
+                rules[this.value] = {
+                    dstURL : value,
+                    enable : true
+                };
 
                 this.value = "";
                 $("#" + dstURL).val("");
                 number += 1;
             }
-            
         });
         alert("成功添加" + number + "个规则");
         self.port.emit("add", rules);
