@@ -20,5 +20,19 @@
     "name": "setting",
     "title": "根据自己的需求，进行自定义规则",
     "description": "为了保证您的上网安全，请确保重定向资源安全可靠"
-  }]
+  },{
+    "type": "control",
+    "label": "import",
+    "name": "import",
+    "title": "import",
+    "description": "import"
+  },{
+    "type": "control",
+    "label": "export",
+    "name": "export",
+    "title": "export",
+    "description": "export"
+  }
+  
+  ]
 }
