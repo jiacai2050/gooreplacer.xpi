@@ -43,6 +43,27 @@ $(function() {
             }
         });
     });
+    $("#homepage").click(function() {
+        self.port.emit("homepage"); 
+    });
+    $("#import").click(function() {
+        self.port.emit("import");
+    });
+    $("#export").click(function() {
+        self.port.emit("export"); 
+    });
+    $("#help").click(function() {
+        jQuery.fn.center = function () {
+            this.css("position","absolute");
+            this.css("top", (($(window).height() - this.outerHeight()) / 2) + $(window).scrollTop() + "px");
+            this.css("left", (($(window).width() - this.outerWidth()) / 2) + $(window).scrollLeft() + "px");
+            return this;
+        }
+        $('#config').center().css('top', '-=40px').show();
+    });
+    $('#close').click(function() {
+        $('#config').hide();
+    });
     $("#ok").click(function() {
         var rules = {};
         var number = 0;

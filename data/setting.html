@@ -13,6 +13,29 @@
         min-height: 100%;
         padding: 0;
     }
+    h1 {
+        color: #555;
+        font-size: 34pt;
+        letter-spacing: 2px;
+        margin: 20px 0 0;
+        padding: 0;
+        text-align: center;
+        text-shadow: 0 0 15px white;
+    }
+    h5 {
+        margin: 0;
+        padding-left: 180px;
+        text-align: center;
+    }
+    button {
+        background: -moz-linear-gradient(center top , #ccc, #fff) repeat scroll 0 0 rgba(0, 0, 0, 0);
+        border: 1px solid grey;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+    .disable {
+        color: #AAA;
+    }
     .line {
         border-style:dotted;
         border-color:red;
@@ -20,23 +43,59 @@
         width:100%;
         height:0
     }
-    .title {
-        display:inline-block;
-        color: #555;
-        letter-spacing: 2px;
-        padding: 0;
-        text-shadow: 0 0 15px white;
+    .actions {
+        margin: 10px auto;
+        text-align: center;
+        width: 600px;
     }
-    .disable {
-        color: #AAA;
+    .dialog {
+        background:-moz-linear-gradient(top,#fff, #AFCFFE);
+        border-radius:8px;
+        display:none; 
+        width: 400px;
+        height: 200px;
+        position:fixed; 
+        margin:0 auto; 
+        padding:10px;
+        font-size: 11pt;
+        box-shadow: 0px 0px 4px black;
+    }
+    .button-row { 
+        text-align:center; 
+        display:block !important;
+    }
+    .centered {
+        margin:20px auto 10px auto;
+        text-align: center;
     }
     </style>
     
 
 </head>
 <body>
-<div align="center">
-<h1 class="title">gooreplacer</h1>&nbsp;&nbsp;&nbsp;&nbsp;<h5 class="title">想去哪儿，就去哪儿</h5>
+
+<h1>gooreplacer</h1>
+<h5>想去哪儿，就去哪儿</h5>
+
+<div class="actions">
+    <button id="homepage">主页</button>
+    <button id="import">导入</button>
+    <button id="export">导出</button>
+    <button id="help">帮助</button>
+
+</div>
+
+<div id="config" class="dialog">
+    <h2>使用帮助</h2>
+    <ol>
+        <li>默认提供google资源的重定向</li>
+        <li>每条重定向规则有“开启/停用”两种状态</li>
+        <li>使用“导出”功能，可以把当前的重定向规则导出到本地</li>
+        <li>使用“导入”功能，可以从本地加载重定向规则</li>
+    </ol>
+    <div class="button-row">
+        <button id="close">关闭</button>
+    </div>
 </div>
 <table id="rules" align="center">
     <tr>
@@ -50,18 +109,14 @@
     </tr>
 
 </table>
-<table align="center">
-    <tr>
-        <td colspan="3" align="center">
-            <input type="button" id="more" value="更多" />
-            <input type="button" id="ok" value="确定" />
-        </td>    
 
-    </tr>
-</table>
+<div class="centered">
+    <button id="more">更多</button>
+    <button id="ok">确定</button>
+</div>
 <div class="line"></div>
-<div align="center">
-<h2 class="title">系统中已有以下规则</h2>
+<div class="centered">
+    <h3>系统中已有以下规则</h3>
 </div>
 <table id="list" align="center"></table>
 </body>

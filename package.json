@@ -6,7 +6,7 @@
   "author": "liujiacai",
   "homepage": "http://liujiacai.net/gooreplacer",
   "license": "MPL 2.0",
-  "version": "0.5",
+  "version": "0.6",
   
   "preferences": [{
       "name": "isRedirect",
@@ -16,23 +16,14 @@
       "value": false
   }, {
     "type": "control",
-    "label": "Here to Go",
+    "label": "开始自定义",
     "name": "setting",
     "title": "根据自己的需求，进行自定义规则",
     "description": "为了保证您的上网安全，请确保重定向资源安全可靠"
-  },{
-    "type": "control",
-    "label": "import",
-    "name": "import",
-    "title": "import",
-    "description": "import"
-  },{
-    "type": "control",
-    "label": "export",
-    "name": "export",
-    "title": "export",
-    "description": "export"
-  }
-  
-  ]
+  }, {
+    "type": "string",
+    "name": "defaultDir",
+    "title": "default directory for export/import",
+    "hidden": true
+  }]
 }
