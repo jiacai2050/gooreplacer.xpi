@@ -60,11 +60,11 @@ $(function() {
                 "\\\\",
                 "\\+"
             ].join("|");
-            var REkeywords = new RegExp(stopwords, 'g');
-            if (val.match(REkeywords)) {
+            var keywordsRE = new RegExp(stopwords, 'g');
+            if (val.match(keywordsRE)) {
                 alert("URL中不能包含 (, ), [, ], {, }, ?, \\, + 这些特殊字符！");
-                this.value="";
-                this.focus();
+                this.value = "";
+                $(this).focus();
             };
             
         });    
@@ -85,7 +85,7 @@ $(function() {
             this.css("left", (($(window).width() - this.outerWidth()) / 2) + $(window).scrollLeft() + "px");
             return this;
         }
-        $('#config').center().css('top', '-=200px').show();
+        $('#config').center().css('top', '-=40px').show();
     });
     $('#close').click(function() {
         $('#config').hide();
