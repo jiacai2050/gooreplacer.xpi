@@ -7,21 +7,26 @@ var getLabel = function(status) {
     }
 }
 $(function() {
-    self.port.on("init", function(data) {
+    self.port.on("init", function(rules) {
         $("#list").html("");
         var html = [];
-        for(key in data) {
+        for(key in rules) {
+            var srcURL = key;
             var rowHTML = [];
-            if (data[key].enable) {
+            if (rules[key].enable) {
                 rowHTML.push("<tr>");
             } else {
                 rowHTML.push("<tr class='disable'>");
             }
+            var astar = /\.\*/g;
+            if (key.match(astar)) {
+                srcURL = key.replace(astar, "*");
+            };
             rowHTML.push(
-                "<td>"+key+"</td>",
+                "<td>"+srcURL+"</td>",
                 "<td>----></td>",
-                "<td>"+data[key].dstURL+"</td>",
-                "<td><input type=button id=change"+key+" value="+data[key].enable+"></td>",
+                "<td>"+rules[key].dstURL+"</td>",
+                "<td><input type=button id=change"+key+" value="+rules[key].enable+"></td>",
                 "<td><input type=button id=del"+key+" value='删除'></td>",
             "</tr>");
                 
@@ -42,6 +47,27 @@ $(function() {
                 self.port.emit("change", key);    
             }
         });
+        $('input[type="text"]').blur(function() {
+            var val = this.value.trim();
+            var stopwords = [
+                "\\(",
+                "\\)",
+                "\\[",
+                "\\]",
+                "\\{",
+                "\\}",
+                "\\?",
+                "\\\\",
+                "\\+"
+            ].join("|");
+            var REkeywords = new RegExp(stopwords, 'g');
+            if (val.match(REkeywords)) {
+                alert("URL中不能包含 (, ), [, ], {, }, ?, \\, + 这些特殊字符！");
+                this.value="";
+                this.focus();
+            };
+            
+        });    
     });
     $("#homepage").click(function() {
         self.port.emit("homepage"); 
@@ -59,11 +85,12 @@ $(function() {
             this.css("left", (($(window).width() - this.outerWidth()) / 2) + $(window).scrollLeft() + "px");
             return this;
         }
-        $('#config').center().css('top', '-=40px').show();
+        $('#config').center().css('top', '-=200px').show();
     });
     $('#close').click(function() {
         $('#config').hide();
     });
+    
     $("#ok").click(function() {
         var rules = {};
         var number = 0;
@@ -97,9 +124,9 @@ var addRows = function() {
     while(total < addLimit) {
         
         var rowHTML = ["<tr>",
-            "<td><input id='srcURL"+total+"'></td>",
+            "<td><input type='text' id='srcURL"+total+"'></td>",
             "<td>----></td>",
-            "<td><input id='dstURL"+total+"'></td>",
+            "<td><input type='text' id='dstURL"+total+"'></td>",
             "</tr>"].join("");
         $("#rules").append(rowHTML);
 
