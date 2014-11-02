@@ -18,9 +18,9 @@ $(function() {
             } else {
                 rowHTML.push("<tr class='disable'>");
             }
-            var astar = /\.\*/g;
-            if (key.match(astar)) {
-                srcURL = key.replace(astar, "*");
+            var asteriskRE = /\.\*/g;
+            if (key.match(asteriskRE)) {
+                srcURL = key.replace(asteriskRE, "*");
             };
             rowHTML.push(
                 "<td>"+srcURL+"</td>",
