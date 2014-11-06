@@ -47,11 +47,17 @@ TEST
 
 DIY
 ===
-在最新版的gooreplacer中，加入了自定义功能，用户可以根据自己的需要进行设置；同时每条规则添加“停用/开启”两种状态；更进一步，添加”导入/导出“，用户可以导出当前的规则，即可以作为备份，又可以方便与别人分享。
+在最新版(v0.6)的gooreplacer中，加入以下新功能:
+
+1. 自定义功能，用户可以根据自己的需要进行设置；
+2. 每条规则添加“停用/开启”两种状态；
+3. 更进一步，添加”导入/导出“，用户可以导出当前的规则，即可以作为备份，又可以方便与别人分享。
 
 <img src="http://img02.taobaocdn.com/imgextra/i2/581166664/TB2heDJaVXXXXXxXpXXXXXXXXXX_!!581166664.png" alt=" gooreplacer"/>
 
-如果你发现有任何问题，请与我联系。谢谢！
+mozilla官方审查最近有些慢,大家可以下去[这里](https://addons.mozilla.org/zh-CN/firefox/addon/gooreplacer/versions/)下载v0.6尝鲜~~
+
+如果你发现有任何问题或建议，请与我联系。谢谢！
 
 Development
 ===
