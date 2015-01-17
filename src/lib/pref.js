@@ -4,14 +4,15 @@ const prefs = config.prefs;
 const windows = require("sdk/windows").browserWindows;
 
 var option = require("./option");
-var button = require("./button");
+var Toggle = require("./button");
 
 exports.init = function(goobserver) {
+    var toggle = new Toggle(prefs);
     if(prefs.isRedirect) {
-        button.enable();
+        toggle.enable();
         goobserver.register();
     } else {
-        button.disable();
+        toggle.disable();
     }
     windows.on('close', function(w) {
         if(prefs.isRedirect) {
@@ -23,14 +24,12 @@ exports.init = function(goobserver) {
     });
     config.on("isRedirect", function(prefName) {
         if(prefs.isRedirect) {
-            button.enable();
+            toggle.enable();
             goobserver.register();
         } else {
-            button.disable();
+            toggle.disable();
             goobserver.unregister();
         }
     });
 }
 exports.prefs = prefs;
- 
-

@@ -1,4 +1,3 @@
-//document.body.style.border = "5px solid red";
 var getLabel = function(status) {
     if (status == "true") {
         return "停用";
@@ -11,7 +10,6 @@ $(function() {
         $("#list").html("");
         var html = [];
         for(key in rules) {
-            var srcURL = key;
             var rowHTML = [];
             if (rules[key].enable) {
                 rowHTML.push("<tr>");
@@ -19,6 +17,7 @@ $(function() {
                 rowHTML.push("<tr class='disable'>");
             }
             var asteriskRE = /\.\*/g;
+            var srcURL = key;
             if (key.match(asteriskRE)) {
                 srcURL = key.replace(asteriskRE, "*");
             };
@@ -47,27 +46,6 @@ $(function() {
                 self.port.emit("change", key);    
             }
         });
-        $('input[type="text"]').blur(function() {
-            var val = this.value.trim();
-            var stopwords = [
-                "\\(",
-                "\\)",
-                "\\[",
-                "\\]",
-                "\\{",
-                "\\}",
-                "\\?",
-                "\\\\",
-                "\\+"
-            ].join("|");
-            var keywordsRE = new RegExp(stopwords, 'g');
-            if (val.match(keywordsRE)) {
-                alert("URL中不能包含 (, ), [, ], {, }, ?, \\, + 这些特殊字符！");
-                this.value = "";
-                $(this).focus();
-            };
-            
-        });    
     });
     $("#homepage").click(function() {
         self.port.emit("homepage"); 
@@ -132,4 +110,25 @@ var addRows = function() {
 
         total+=1;
     } 
+    $('input[type="text"]').blur(function() {
+        var val = this.value.trim();
+        var stopwords = [
+            "\\(",
+            "\\)",
+            "\\[",
+            "\\]",
+            "\\{",
+            "\\}",
+            "\\?",
+            "\\\\",
+            "\\+"
+        ].join("|");
+        var keywordsRE = new RegExp(stopwords, 'g');
+        if (val.match(keywordsRE)) {
+            alert("URL中不能包含 (, ), [, ], {, }, ?, \\, + 这些特殊字符！");
+            this.value = "";
+            $(this).focus();
+        };
+        
+    });    
 }

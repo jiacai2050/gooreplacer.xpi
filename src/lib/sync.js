@@ -3,8 +3,7 @@ const nsIFilePicker = Ci.nsIFilePicker;
 const fileIO = require("sdk/io/file");
 const prefs = require("sdk/simple-prefs").prefs;
 
-var db = require("./db").db;
-
+var db = new (require("./db"))();
 
 function pick(caption, mode) {
     var window = require("sdk/window/utils").getMostRecentBrowserWindow();

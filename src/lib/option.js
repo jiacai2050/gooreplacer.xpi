@@ -1,6 +1,6 @@
 const tabs = require("sdk/tabs");
 const data = require("sdk/self").data;
-var db = require("./db").db;
+var db = new (require("./db"))();
 var sync = require("./sync");
 
 
@@ -8,7 +8,7 @@ exports.tabOptions = {
     url : data.url("setting.html"),
     onReady : function(tab) {
         var worker = tab.attach({
-            contentScriptFile: [data.url("jquery-1.6.2.min.js"), data.url("setting.js")],
+            contentScriptFile: [data.url("js/jquery-1.6.2.min.js"), data.url("js/setting.js")],
         });
         worker.port.on("add", function(rules) {
             db.add(rules);
