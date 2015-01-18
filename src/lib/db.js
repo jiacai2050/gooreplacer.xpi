@@ -4,15 +4,6 @@ const { merge } = require("sdk/util/object");
 var DB = function() {
     this.add = function (newRules) {
         ss.storage.rules = merge(ss.storage.rules, newRules);
-        var rules = ss.storage.rules;
-        for(key in rules) {
-            if(key.indexOf('*')!=-1) {
-                newkey = key.replace(/\*/g, ".*");
-                rules[newkey] = rules[key];
-                delete rules[key];
-            }
-  
-        }
     };
     this.del = function (key) {
         if (ss.storage.rules.hasOwnProperty(key)) {
