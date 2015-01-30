@@ -73,16 +73,21 @@ $(function() {
         var rules = {};
         var number = 0;
         $("input[id^=srcURL]").each(function() {
-            if(this.value.trim() !== "") {
-                var dstURL = this.id.replace("srcURL", "dstURL");
-                var value = $("#" + dstURL).val();
-                rules[this.value] = {
-                    dstURL : value,
+            var srcUrlValue = this.value.trim();
+            if(srcUrlValue !== "") {
+                var dstUrlTag = this.id.replace("srcURL", "dstURL");
+                var dstUrlValue = $("#" + dstUrlTag).val().trim();
+
+                srcUrlValue = srcUrlValue.replace(/\*/g,".*"); 
+                dstUrlValue = dstUrlValue.replace(/\*/g,".*"); 
+
+                rules[srcUrlValue] = {
+                    dstURL : dstUrlValue,
                     enable : true
                 };
 
                 this.value = "";
-                $("#" + dstURL).val("");
+                $("#" + dstUrlTag).val("");
                 number += 1;
             }
         });
