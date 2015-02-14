@@ -65,7 +65,7 @@ www.baidu.com/s\?wd=java   ----通配符--->  www.baidu.com/s?wd=lisp
 此外，可以使用`^`、`$`表示字符的开始与结尾。例如：
 
 ```
-baidu.com/$  ----正则式--->  baidu.com/?
+baidu.com/$  ----通配符--->  baidu.com/?
 ```
 这样就能够把`baidu.com/`重定向到`baidu.com/?`了，[据说](http://v2ex.com/t/169967#reply2)，这样能防止劫持吆 -:)
 
