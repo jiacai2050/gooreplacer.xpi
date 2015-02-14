@@ -18,9 +18,9 @@ A replacer for google fonts/api/themes.... to load page faster!
 
 Feature
 ===
-Firefox的导入导出功能与Chrome版本互通，也就是说Firefox版本可以导入Chrome版本导出的规则，反之亦然。
 
-<img src="http://img02.taobaocdn.com/imgextra/i2/581166664/TB2heDJaVXXXXXxXpXXXXXXXXXX_!!581166664.png" alt=" gooreplacer"/>
+- Firefox的导入导出功能与Chrome版本互通，也就是说Firefox版本可以导入Chrome版本导出的规则，反之亦然。
+- 重定向规则支持正则表达式与通配符两种。
 
 Install
 ===
@@ -47,6 +47,39 @@ Test
 4. http://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js
 
 如果能转到lug.ustc.edu.cn相应的资源即说明跳转成功。
+
+DIY
+===
+
+在自定义规则时，支持两种类型，下面说下注意事项：
+
+通配符类型
+====
+
+在通配符类型中，原始URL中可以使用`*`进行`?`模糊匹配，如果需要表达字符自身，可以使用`\`进行转义。例如：
+
+```
+www.baidu.com/s\?wd=java   ----通配符--->  www.baidu.com/s?wd=lisp
+```
+
+此外，可以使用`^`、`$`表示字符的开始与结尾。例如：
+
+```
+(weibo|ucloud)\.com  ----正则式--->  $1.cn
+```
+
+这样就把weibo.com、ucloud.com分别重定向到weibo.cn与ucloud.cn了。
+
+
+正则式类型
+====
+
+在正则式类型中，原始URL中可以使用JS中的[正则表达式](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/RegExp)语法定义，目的URL中如果要反引用原始URL中的分组，需要使用$1、$2、$3......。例如：
+
+```
+(weibo|ucloud)\.com  ----正则式--->  $1.cn
+```
+如果想把weibo.com、ucloud.com分别重定向到weibo.cn与ucloud.cn。可以这么定义：
 
 Warn
 ===
@@ -75,6 +108,7 @@ VERSION
 - 0.5 用户自定义规则界面测试完毕，发布正式版
 - 0.6 添加导入导出功能，发布正式版
 - 0.7 在工具栏添加gooreplacer图标，发布正式版
+- 0.8 重定向支持正则表达式，支持隐私模式
 - ...
 - 更多功能，等你来开发 
 

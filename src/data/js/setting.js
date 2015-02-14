@@ -5,6 +5,23 @@ var getLabel = function(status) {
         return "开启";
     }
 }
+var getKind = function(kind) {
+    if (kind == "wildcard") {
+        return "通配符";
+    } else {
+        return "正则式";
+    }
+}
+var replaceWildcard = function(url) {
+    //js不支持look-behind，所以这里采用将字符串倒转，之后采用look-ahead方式
+    //这里需要将*与?替换为.*与.?，而\*与\?保留不变
+    var reverse = function(str) {
+        return str.split("").reverse().join("");
+    };
+    var reversedUrl = reverse(url);
+ 
+    return reverse(reversedUrl.replace(/([\*|\?])(?!\\)/g,"$1."));
+}
 $(function() {
     self.port.on("init", function(rules) {
         $("#list").html("");
@@ -16,17 +33,19 @@ $(function() {
             } else {
                 rowHTML.push("<tr class='disable'>");
             }
-            var asteriskRE = /\.\*/g;
             var srcURL = key;
-            if (key.match(asteriskRE)) {
-                srcURL = key.replace(asteriskRE, "*");
+            var kind = rules[key].kind || "wildcard";
+            
+            if (kind == "wildcard" && key.match(/\.(\*|\?)/g)) {
+                srcURL = key.replace(/\.(\*|\?)/g, "$1");
             };
             rowHTML.push(
-                "<td>"+srcURL+"</td>",
-                "<td>----></td>",
+                "<td >"+srcURL+"</td>",
+                "<td>---->"+getKind(kind)+"---></td>",
                 "<td>"+rules[key].dstURL+"</td>",
                 "<td><input type=button id=change"+key+" value="+rules[key].enable+"></td>",
                 "<td><input type=button id=del"+key+" value='删除'></td>",
+
             "</tr>");
                 
             $("#list").append(rowHTML.join(""));
@@ -78,15 +97,21 @@ $(function() {
                 var dstUrlTag = this.id.replace("srcURL", "dstURL");
                 var dstUrlValue = $("#" + dstUrlTag).val().trim();
 
-                srcUrlValue = srcUrlValue.replace(/\*/g,".*"); 
-                dstUrlValue = dstUrlValue.replace(/\*/g,".*"); 
+                var kindTag = this.id.replace("srcURL", "kind");
+                var kindValue = $("#" + kindTag).val();
+
+                if (kindValue == "wildcard") {
+                    srcUrlValue = replaceWildcard(srcUrlValue);
+                };
 
                 rules[srcUrlValue] = {
                     dstURL : dstUrlValue,
+                    kind: kindValue,
                     enable : true
                 };
 
                 this.value = "";
+                $("#" + kindTag).attr("value",'wildcard');
                 $("#" + dstUrlTag).val("");
                 number += 1;
             }
@@ -108,32 +133,12 @@ var addRows = function() {
         
         var rowHTML = ["<tr>",
             "<td><input type='text' id='srcURL"+total+"'></td>",
-            "<td>----></td>",
+            "<td><select id='kind"+total+"'><option value='wildcard'>通配符</option><option value='regexp'>正则式</option></td>",
             "<td><input type='text' id='dstURL"+total+"'></td>",
+
             "</tr>"].join("");
         $("#rules").append(rowHTML);
 
         total+=1;
-    } 
-    $('input[type="text"]').blur(function() {
-        var val = this.value.trim();
-        var stopwords = [
-            "\\(",
-            "\\)",
-            "\\[",
-            "\\]",
-            "\\{",
-            "\\}",
-            "\\?",
-            "\\\\",
-            "\\+"
-        ].join("|");
-        var keywordsRE = new RegExp(stopwords, 'g');
-        if (val.match(keywordsRE)) {
-            alert("URL中不能包含 (, ), [, ], {, }, ?, \\, + 这些特殊字符！");
-            this.value = "";
-            $(this).focus();
-        };
-        
-    });    
+    }    
 }

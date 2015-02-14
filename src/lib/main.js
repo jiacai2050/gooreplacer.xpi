@@ -27,10 +27,24 @@ var goorepalcerObserver = Class({
         var redirectRules = db.select();
 
         for(var key in redirectRules) {
+
             var redirectRE = new RegExp(key);
-            if( redirectRules[key].enable && requestUrl.match(redirectRE)) {
-                var redirectUrl = requestUrl.replace(redirectRE, redirectRules[key].dstURL);    
-                httpChannel.redirectTo(newURI(redirectUrl));    
+            if( redirectRules[key].enable) {
+                var matched = redirectRE.exec(requestUrl);
+                if (matched) {
+                    var redirectUrl = "";
+                    var kind = redirectRules[key].kind || "wildcard";
+                    if (kind == "wildcard") {
+                        redirectUrl = requestUrl.replace(redirectRE, redirectRules[key].dstURL);
+                    } else {
+                        redirectUrl = requestUrl.replace(matched[0], redirectRules[key].dstURL);
+                        matched = matched.splice(1);
+                        for (var i = 0; i < matched.length; i++) {
+                            redirectUrl = redirectUrl.replace("$" + (i+1), matched[i]);
+                        };
+                    }
+                    httpChannel.redirectTo(newURI(redirectUrl));
+                };
             }
         }
     }

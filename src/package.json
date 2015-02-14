@@ -6,7 +6,7 @@
   "author": "liujiacai",
   "homepage": "http://liujiacai.net/gooreplacer",
   "license": "MPL 2.0",
-  "version": "0.7.2",
+  "version": "0.8",
   "permissions": {"private-browsing": true},
   "preferences": [{
       "name": "isRedirect",
