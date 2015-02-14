@@ -56,7 +56,7 @@ DIY
 通配符类型
 ====
 
-在通配符类型中，原始URL中可以使用`*`进行`?`模糊匹配，如果需要表达字符自身，可以使用`\`进行转义。例如：
+在通配符类型中，原始URL中可以使用`*`进行`?`模糊匹配，如果需要表示字符自身的含义，可以使用`\`进行转义。例如：
 
 ```
 www.baidu.com/s\?wd=java   ----通配符--->  www.baidu.com/s?wd=lisp
@@ -65,10 +65,9 @@ www.baidu.com/s\?wd=java   ----通配符--->  www.baidu.com/s?wd=lisp
 此外，可以使用`^`、`$`表示字符的开始与结尾。例如：
 
 ```
-(weibo|ucloud)\.com  ----正则式--->  $1.cn
+baidu.com/$  ----正则式--->  baidu.com/?
 ```
-
-这样就把weibo.com、ucloud.com分别重定向到weibo.cn与ucloud.cn了。
+这样就能够把`baidu.com/`重定向到`baidu.com/?`了，[据说](http://v2ex.com/t/169967#reply2)，这样能防止劫持吆 -:)
 
 
 正则式类型
@@ -79,7 +78,8 @@ www.baidu.com/s\?wd=java   ----通配符--->  www.baidu.com/s?wd=lisp
 ```
 (weibo|ucloud)\.com  ----正则式--->  $1.cn
 ```
-如果想把weibo.com、ucloud.com分别重定向到weibo.cn与ucloud.cn。可以这么定义：
+
+这样就把weibo.com、ucloud.com分别重定向到weibo.cn与ucloud.cn了。
 
 Warn
 ===
