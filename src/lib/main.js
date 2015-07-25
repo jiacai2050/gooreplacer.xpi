@@ -3,8 +3,8 @@ const xpcom = require("sdk/platform/xpcom");
 const { Class } = require("sdk/core/heritage");
 const { newURI } = require('sdk/url/utils');
 
-var db = new (require("./db"))();
-db.init();
+var gooDB = require("./db");
+gooDB.init();
 
 var contractID = '@mozilla.org/observer-service;1';
 var observerService = Cc[contractID].getService(Ci.nsIObserverService);
@@ -22,29 +22,29 @@ var goorepalcerObserver = Class({
     },  
     observe: function(subject, topic, data) {
         var httpChannel = subject.QueryInterface(Ci.nsIHttpChannel);
-        var requestUrl = httpChannel.URI.spec;
+        var requestURL = httpChannel.URI.spec;
 
-        var redirectRules = db.select();
+        var gooRules = gooDB.getRules();
 
-        for(var key in redirectRules) {
-
-            var redirectRE = new RegExp(key);
-            if( redirectRules[key].enable) {
-                var matched = redirectRE.exec(requestUrl);
-                if (matched) {
-                    var redirectUrl = "";
-                    var kind = redirectRules[key].kind || "wildcard";
-                    if (kind == "wildcard") {
-                        redirectUrl = requestUrl.replace(redirectRE, redirectRules[key].dstURL);
-                    } else {
-                        redirectUrl = requestUrl.replace(matched[0], redirectRules[key].dstURL);
-                        matched = matched.splice(1);
-                        for (var i = 0; i < matched.length; i++) {
-                            redirectUrl = redirectUrl.replace("$" + (i+1), matched[i]);
+        for(var srcURL in gooRules) {
+            var gooRule = gooRules[srcURL];
+            var redirectRE = new RegExp(srcURL);
+            if( gooRule.enable) {
+                var redirectMatch = redirectRE.exec(requestURL);
+                if (redirectMatch) {
+                    var redirectURL = "";
+                    if (gooRule.kind === "regexp") { // kind 默认为wildcard
+                        redirectURL = requestURL.replace(redirectMatch[0], gooRule.dstURL);
+                        redirectMatch = redirectMatch.splice(1);
+                        for (var i = 0; i < redirectMatch.length; i++) {
+                            redirectURL = redirectURL.replace("$" + (i+1), redirectMatch[i]);
                         };
+                    } else {
+                        redirectURL = requestURL.replace(redirectRE, gooRule.dstURL);
                     }
-                    httpChannel.redirectTo(newURI(redirectUrl));
-                };
+                    httpChannel.redirectTo(newURI(redirectURL));
+                    break;
+                }
             }
         }
     }

@@ -3,7 +3,7 @@ const nsIFilePicker = Ci.nsIFilePicker;
 const fileIO = require("sdk/io/file");
 const prefs = require("sdk/simple-prefs").prefs;
 
-var db = new (require("./db"))();
+var db = require("./db");
 
 function pick(caption, mode) {
     var window = require("sdk/window/utils").getMostRecentBrowserWindow();
@@ -54,7 +54,7 @@ function importRules() {
         gson += str.value;
     }
     converter.close();
-    db.add(JSON.parse(gson).rules);
+    db.addRule(JSON.parse(gson).rules);
 
 }
 function exportRules() {
@@ -78,7 +78,7 @@ function exportRules() {
     var gson = {
         createBy: "http://liujiacai.net/gooreplacer/",
         createAt: new Date().toString(), 
-        rules: db.select()
+        rules: db.getRules()
     };
     converter.writeString(JSON.stringify(gson,null,5));
     converter.close();

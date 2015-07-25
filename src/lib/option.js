@@ -1,38 +1,38 @@
 const tabs = require("sdk/tabs");
 const data = require("sdk/self").data;
-var db = new (require("./db"))();
+var db = require("./db");
 var sync = require("./sync");
 
 
 exports.tabOptions = {
-    url : data.url("setting.html"),
+    url : data.url("option.html"),
     onReady : function(tab) {
         var worker = tab.attach({
-            contentScriptFile: [data.url("js/jquery-1.6.2.min.js"), data.url("js/setting.js")],
+            contentScriptFile: [data.url("js/jquery-1.6.2.min.js"), data.url("js/option.js")],
         });
-        worker.port.on("add", function(rules) {
-            db.add(rules);
-            worker.port.emit("init", db.select());
+        worker.port.on("add", function(rule) {
+            db.addRule(rule);
+            worker.port.emit("init", db.getRules());
         });
-        worker.port.on("del", function(key) {
-            db.del(key);
-            worker.port.emit("init", db.select());
+        worker.port.on("delete", function(key) {
+            db.deleteRule(key);
+            worker.port.emit("init", db.getRules());
         });
         worker.port.on("change", function(key) {
-            db.update(key);
-            worker.port.emit("init", db.select());
+            db.updateRule(key);
+            worker.port.emit("init", db.getRules());
         });
-        worker.port.on("homepage", function() {
-            tabs.open("http://liujiacai.net/gooreplacer/");
+        worker.port.on("toggle", function(key) {
+            db.toggleRule(key);
+            worker.port.emit("init", db.getRules());
         });
         worker.port.on("import", function() {
             sync.importRules();
-            worker.port.emit("init", db.select());
+            worker.port.emit("init", db.getRules());
         });
         worker.port.on("export", function() {
             sync.exportRules();
         });
-        worker.port.emit("init", db.select());
+        worker.port.emit("init", db.getRules());
     }
-
 }
