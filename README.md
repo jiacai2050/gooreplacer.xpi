@@ -115,5 +115,4 @@ VERSION
 
 License
 ===
-[MIT License](http://liujiacai.net/license/MIT/) © Jiacai Liu
-
+[MIT License](http://liujiacai.net/license/MIT.html?year=2015) © Jiacai Liu
