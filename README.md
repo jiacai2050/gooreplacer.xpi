@@ -109,6 +109,11 @@ VERSION
 - 0.6 添加导入导出功能，发布正式版
 - 0.7 在工具栏添加gooreplacer图标，发布正式版
 - 0.8 重定向支持正则表达式，支持隐私模式
+- 0.9 重构自定义界面，支持规则编辑功能
 - ...
 - 更多功能，等你来开发 
+
+License
+===
+[MIT License](http://liujiacai.net/license/MIT/) © Jiacai Liu
 
