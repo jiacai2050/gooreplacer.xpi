@@ -1,54 +1,4 @@
-
-var GooRule = function(srcURL, dstObj) {
-    var WILDCARD = "wildcard",
-        REGEXP   = "regexp";
-
-    this.srcURL = srcURL;
-    this.kind   = dstObj.kind || WILDCARD; //规则默认为WILDCARD类型
-    this.dstURL = dstObj.dstURL;
-    this.enable = dstObj.hasOwnProperty("enable")? dstObj.enable : true;   //规则默认开启
-    
-    this.toJson = function() {
-        var json = {};
-        json[this.getKey()] = this.getValue();
-        return json;
-    }
-    this.getKey = function() {
-        return this.srcURL;
-    }
-    this.getValue = function() {
-        return {
-            dstURL : this.dstURL,
-            kind: this.kind,
-            enable : this.enable    
-        }; 
-    }
-    this.getKindLabel = function() {
-        if (this.kind === REGEXP) {
-            return "正则式";
-        } else {
-            return "通配符";
-        }
-    }
-    this.getSrcURLLabel = function() {
-        var replaceWildcard = function(url) {
-            //js不支持look-behind，所以这里采用将字符串倒转，之后采用look-ahead方式
-            //这里需要将*与?替换为.*与.?，而\*与\?保留不变
-            var reverse = function(str) {
-                return str.split("").reverse().join("");
-            };
-            var reversedUrl = reverse(url);
-            return reverse(reversedUrl.replace(/([\*|\?])(?!\\)/g,"$1."));
-        };
-        if (this.kind == "wildcard" && this.srcURL.match(/\.(\*|\?)/g)) {
-            return this.srcURL.replace(/\.(\*|\?)/g, "$1");
-        } else {
-            return this.srcURL;
-        }
-    }
-}
-
-var gooRuleDAO = new(function() {
+ var gooRuleDAO = new(function() {
     var dao = this;
     
     this["delete"] = function(e) {
@@ -128,13 +78,12 @@ var gooRuleDAO = new(function() {
             tdDstURL.children("input[type=text]").val("");
             return false;
         };
-        var jsonRule = {};
-        jsonRule[srcURLVal] = {
-                dstURL: dstURLVal,
-                kind  : kindVal,
-                enable: true
-        };
-        self.port.emit("add", jsonRule);
+        var gooRule = new GooRule(srcURLVal, {
+            dstURL: dstURLVal,
+            kind  : kindVal,
+            enable: true
+        });
+        self.port.emit("add", gooRule.toJson());
     }
 });
 
@@ -205,9 +154,9 @@ var addEnterListener = function() {
 }
 var addRow = function() {
     var rowHTML = ["<tr>",
-        "<td><input type='text'/></td>",
+        "<td><input type='text' style='width:200px'/></td>",
         "<td><select><option value='wildcard'>通配符</option><option value='regexp'>正则式</option></td>",
-        "<td><input type='text'/></td>",
+        "<td><input type='text' style='width:200px'/></td>",
         "<td>" + imageUtil.save + "</td>",
         "</tr>"].join("");
     $("#rules tbody").append(rowHTML);
@@ -241,14 +190,24 @@ $(function() {
     self.port.on("init", function(gooRules) {
         initRules(gooRules);
     });
+    self.port.on("onlineSaveDone", function(msg) {
+        alert(msg);
+    });
+    self.port.on("onlineUpdateDone", function(ret) {
+        if (ret.code === 0) {
+            var d = new Date(ret.updateTime);
+            $("#lastUpdateTime").html(d.toLocaleString());    
+        };
+        alert(ret.msg);
+    });
 });
-function initRules(gooRules) {
+function initRules(initJson) {
+    var jsonRules = initJson.localRules;
     $("#rules tbody").html("");
     var html = [];
-    for(var srcURL in gooRules) {
-        var gooRule     = new GooRule(srcURL, gooRules[srcURL]);
-        var srcURL      = gooRule.srcURL,
-            srcURLLabel = gooRule.getSrcURLLabel(),
+    for(var srcURL in jsonRules) {
+        var gooRule     = new GooRule(srcURL, jsonRules[srcURL]);
+        var srcURLLabel = gooRule.getSrcURLLabel(),
             enable      = gooRule.enable,
             kindLabel   = gooRule.getKindLabel(),
             dstURL      = gooRule.dstURL;
@@ -263,7 +222,7 @@ function initRules(gooRules) {
             ruleStatus = "rule_enable";
         }
         rowHTML.push(
-            "<td><span>" + srcURLLabel + "</span><input type='hidden' value='" + gooRule.getKey() + "'/></td>",
+            "<td><span>" + srcURLLabel + "</span><input type='hidden' value='" + srcURLLabel + "'/></td>",
             "<td><span>" + kindLabel + "</span><input type='hidden' value='" + gooRule.kind + "'/></td>",
             "<td>" + dstURL + "</td>",
             "<td>" + imageUtil[ruleStatus] + imageUtil.edit + imageUtil["delete"] + "</td>",
@@ -274,4 +233,25 @@ function initRules(gooRules) {
         imageUtil.bindClick("edit");
         imageUtil.bindClick("delete");
     }
+    var onlineURL = initJson.onlineURL;
+
+    $("#onlineURL").val(onlineURL.url);
+    $("#onlineInterval").val(onlineURL.interval);
+    $("#onlineEnable").val(onlineURL.enable + "");
+    var d = new Date(initJson.lastUpdateTime);
+    $("#lastUpdateTime").html(d.toLocaleString());
+    $("#onlineSave").click(function() {
+        var url = $("#onlineURL").val();
+        var interval = $("#onlineInterval").val();
+        var enable = $("#onlineEnable").val();
+        self.port.emit("onlineSave", {
+            url: url,
+            interval: interval,
+            enable: enable
+        });
+    });
+    $("#onlineUpdate").click(function() {
+        self.port.emit("onlineUpdate");
+    });
+
 };

@@ -1,37 +1,64 @@
 const ss = require("sdk/simple-storage");
 const { merge } = require("sdk/util/object");
 
-var gooDB = new (function () {
+var GooRuleObj = require("./GooRule");
+
+var gooDB = new(function() {
     var RULES_KEY = "rules",
-        rules     = {
-            'ajax.googleapis.com': {dstURL: 'ajax.lug.ustc.edu.cn', enable: true},        
-            'fonts.googleapis.com': {dstURL:'fonts.lug.ustc.edu.cn', enable: true},        
-            'themes.googleusercontent.com': {dstURL:'google-themes.lug.ustc.edu.cn', enable: true},
-            'fonts.gstatic.com': {dstURL:'fonts-gstatic.lug.ustc.edu.cn', enable: true},
-            'http.*://platform.twitter.com/widgets.js': {dstURL: 'https://raw.githubusercontent.com/jiacai2050/gooreplacer/gh-pages/proxy/widgets.js', enable: true},
-            'http.*://apis.google.com/js/api.js': {dstURL: 'https://raw.githubusercontent.com/jiacai2050/gooreplacer/gh-pages/proxy/api.js', enable: true},
-            'http.*://apis.google.com/js/plusone.js': {dstURL: 'https://raw.githubusercontent.com/jiacai2050/gooreplacer/gh-pages/proxy/plusone.js', enable: true}
+        ISREDIRECT_KEY = "isRedirect";
+    var ONLINE_URL_KEY = "onlineRulesURL",
+        online_url = {
+            url: "https://raw.githubusercontent.com/jiacai2050/gooreplacer4chrome/master/gooreplacer.gson",
+            interval: 5,
+            enable: true
         };
+    var LAST_UPDATE_KEY = "onlineLastUpdateTime";
+    var ONLINE_RULES_KEY = "onlineRules";
     this.init = function() {
+        if (!ss.storage[ONLINE_URL_KEY]) {
+            ss.storage[ONLINE_URL_KEY] = online_url;
+        }
         if (!ss.storage[RULES_KEY]) {
-            ss.storage[RULES_KEY] = rules;
+            ss.storage[RULES_KEY] = {};
         }
     }
-    this.getRules = function() {
-        return ss.storage[[RULES_KEY]];
+    this.getOnlineURL = function() {
+        return ss.storage[ONLINE_URL_KEY];
     }
-    this.addRule = function(jsonRule) {
-        merge(ss.storage[[RULES_KEY]], jsonRule);
+    this.setOnlineURL = function(onlineURL) {
+        ss.storage[ONLINE_URL_KEY] = onlineURL;
     }
-    this.deleteRule = function(srcURL) {
-        delete ss.storage[RULES_KEY][srcURL];
+    this.getLastUpdateTime = function() {
+        return ss.storage[LAST_UPDATE_KEY] || 0;
     }
-    this.updateRule = function(srcURL, jsonRule) {
-        delete ss.storage[RULES_KEY][srcURL];
-        this.addRule(jsonRule);
+    this.setLastUpdateTime = function(updateTime) {
+        ss.storage[LAST_UPDATE_KEY] = updateTime;
     }
-    this.toggleRule = function(srcURL) {
-        var gooRule = ss.storage[RULES_KEY][srcURL];
+    this.getRules = function(db) {
+        var db = db || RULES_KEY;
+        return ss.storage[db] || {};
+    }
+    this.addRule = function(jsonRule, db) {
+        var db = db || RULES_KEY;
+        merge(ss.storage[db], jsonRule);
+    }
+    this.deleteRule = function(ruleKey, db) {
+        var db = db || RULES_KEY;
+        if (ruleKey) {
+            delete ss.storage[db][ruleKey];
+        } else {
+            //如果 ruleKey == null， 清空之前的所有规则
+            ss.storage[db] = {};
+        }
+    }
+    this.updateRule = function(ruleKey, jsonRule, db) {
+        var db = db || RULES_KEY;
+        delete ss.storage[db][ruleKey];
+        this.addRule(jsonRule, db);
+    }
+    this.toggleRule = function(ruleKey, db) {
+        var db = db || RULES_KEY;
+        var gooRule = ss.storage[db][ruleKey];
         gooRule["enable"] = ! gooRule["enable"];
         return gooRule["enable"];
     }

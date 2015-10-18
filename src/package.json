@@ -5,8 +5,8 @@
   "description": "一个用于替换网页中Google Fonts/API/themes等的Firefox插件，让你快速打开引用这些资源的页面",
   "author": "liujiacai",
   "homepage": "http://liujiacai.net/gooreplacer",
-  "license": "MPL 2.0",
-  "version": "0.9",
+  "license": "MIT",
+  "version": "1.0",
   "permissions": {"private-browsing": true},
   "preferences": [{
       "name": "isRedirect",

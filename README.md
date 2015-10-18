@@ -1,60 +1,45 @@
-Homepage
-===
+## [gooreplacer](http://liujiacai.net/gooreplacer )
 
-http://liujiacai.net/gooreplacer 
 
-gooreplacer
-===
-
-[Mozilla ADD-ONS地址](https://addons.mozilla.org/zh-CN/firefox/addon/gooreplacer/)
-
-[Chrome版](https://github.com/jiacai2050/gooreplacer4chrome)
-
-A replacer for google fonts/api/themes.... to load page faster!
+> A replacer for google fonts/api/themes.... to load page faster!
 
 一个用于替换网页中Google Fonts,API,themes等的Firefox插件，让你快速打开这些页面！
 
-更进一步，你还可以进行自定义重定向规则，想去哪儿，就去哪儿～～
+- [Chrome版](https://github.com/jiacai2050/gooreplacer4chrome)
 
-Feature
-===
+<a name="install"></a>
+## 安装
 
-- Firefox的导入导出功能与Chrome版本互通，也就是说Firefox版本可以导入Chrome版本导出的规则，反之亦然。
-- 重定向规则支持正则表达式与通配符两种。
-
-Install
-===
-
-用户在[Mozilla ADD-ONS](https://addons.mozilla.org/zh-CN/firefox/addon/gooreplacer/)安装gooreplacer后，如果想要进行资源重定向，需要在配置项中开启，步骤如下（说明：v0.7及以后版本可直接点击工具栏图标进行设置）
-
-1. 在Firefox中输入，about:addons，打开插件控制面板
-2. 找到gooreplacer插件，点击配置
-3. 选中“开启重定向”
-
+1. 在[Mozilla ADD-ONS](https://addons.mozilla.org/zh-CN/firefox/addon/gooreplacer/)下载并安装
+2. 在 Firefox 地址栏中输入`about:addons`，打开插件控制面板（0.7及以后版本可直接点击工具栏图标进行设置）
+3. 找到 gooreplacer 插件，点击配置
+4. 选中“开启重定向”
 
 <img src="http://img02.taobaocdn.com/imgextra/i2/581166664/TB2Ih_MaVXXXXXnXXXXXXXXXXXX_!!581166664.png" alt=" enable-redirect"/>
 
-操作完上面三步后，请用下面TEST中的四个链接做测试。
+<a name="test"></a>
+## 测试
 
-Test
-===
-
-安装本插件并选中“开启重定向”后，可以Firefox中输入下面的链接检查是否起作用:
+安装本插件并选中“开启重定向”后，在地址栏中输入下面的链接：
 
 1. https://fonts.googleapis.com/css?family=Open+Sans
 2. https://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js
 3. http://fonts.googleapis.com/css?family=Open+Sans
 4. http://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js
 
-如果能转到lug.ustc.edu.cn相应的资源即说明跳转成功。
+如果能转到`lug.ustc.edu.cn`相应的资源即说明重定向成功。
 
-DIY
-===
+<a name="diy"></a>
+## 自定义规则说明
 
-在自定义规则时，支持两种类型，下面说下注意事项：
+在自定义规则时，支持两种类型：
 
-通配符类型
-====
+- 通配符类型，在 gooreplacer 内部用`kind: wildcard`标示
+- 正则式类型，在 gooreplacer 内部用`kind: regexp`标示
+
+在设置[在线规则](https://github.com/jiacai2050/gooreplacer4chrome/raw/master/gooreplacer.gson)时会用到内部表示。下面举几个例子：
+
+### 通配符类型
 
 在通配符类型中，原始URL中可以使用`*`进行`?`模糊匹配，如果需要表示字符自身的含义，可以使用`\`进行转义。例如：
 
@@ -70,8 +55,7 @@ baidu.com/$  ----通配符--->  baidu.com/?
 这样就能够把`baidu.com/`重定向到`baidu.com/?`了，[据说](http://v2ex.com/t/169967#reply2)，这样能防止劫持吆 -:)
 
 
-正则式类型
-====
+### 正则式类型
 
 在正则式类型中，原始URL中可以使用JS中的[正则表达式](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/RegExp)语法定义，目的URL中如果要反引用原始URL中的分组，需要使用$1、$2、$3......。例如：
 
@@ -79,23 +63,36 @@ baidu.com/$  ----通配符--->  baidu.com/?
 (weibo|ucloud)\.com  ----正则式--->  $1.cn
 ```
 
-这样就把weibo.com、ucloud.com分别重定向到weibo.cn与ucloud.cn了。
+这样就把`weibo.com`、`ucloud.com`分别重定向到`weibo.cn`与`ucloud.cn`了。
 
-Warn
-===
+<a name="dev"></a>
+## 开发环境
+
+Firefox 的附加组件（add-on）与 Chrome 的相比开发难度大些，文档、测试等方面 Chrome 均完胜 Firefox。这也难怪，Firefox 毕竟是有历史包袱的。
+
+这里介绍下开发 gooreplacer 时的环境，希望对想开发 Firefox 附加组件的同学有所帮助。
+
+[MDN](https://developer.mozilla.org/en-US/Add-ons)介绍了三种开发方式，我这里用的是官方推荐的`Add-on SDK`方式。我开发 gooreplacer 用的是基于 python 的[cfx](https://developer.mozilla.org/en-US/Add-ons/SDK/Tools/cfx)，现在官方推荐使用基于 nodejs 的 [jpm](https://developer.mozilla.org/en-US/Add-ons/SDK/Tools/jpm)，大家可以根据自己的情况选择。下面介绍下`cfx`的安装。
+
+1. 下载[addon SDK](https://github.com/mozilla/addon-sdk/archive/1.17.zip)，目前 github 上最新版为 1.7。
+2. 解压后 zip 文件后，进入`addon-sdk-1.17`文件夹
+3. 激活相关环境变量，`source bin/activate`
+
+经过上面三步，`cfx` 环境就已经搭建好了，我在开发 gooreplacer 常用的命令也就是`cfx run`、`cfx xpi`这两个命令。
+
+为了方便测试，使用了[Extension Auto-Installer](https://addons.mozilla.org/en-US/firefox/addon/autoinstaller/)这个附加组件，它能够在命令行里面安装、更新插件，对开发来说很是必要。我封装了个脚本[dev.sh](dev.sh)，大家可以参考
+
+
+如果你在开发时有什么问题，欢迎和我交流，希望和大家一起进步。
+
+<a name="warn"></a>
+## 注意事项
+
 - 因本扩展使用的[redirectTo](https://developer.mozilla.org/en-US/docs/Mozilla/Tech/XPCOM/Reference/Interface/nsIHttpChannel#redirectTo%28%29)方法限制，只支持[Firefox 20及以上](https://developer.mozilla.org/en-US/docs/Mozilla/Gecko/Versions)的版本。
 - v0.7增加工具栏图标的API只支持[Firefox 29及以上版本](https://developer.mozilla.org/en-US/Add-ons/SDK/Tutorials/Adding_a_Button_to_the_Toolbar)。
 
-Development
-===
-
-- 使用[Mozilla SDK](https://developer.mozilla.org/en-US/Add-ons/SDK)开发
-- 使用[科大公共库](https://servers.ustclug.org/2014/07/ustc-blog-force-google-fonts-proxy/)替换Google资源，之前曾使用360公共库，但是[360并不支持https访问](https://servers.ustclug.org/2014/06/blog-googlefonts-speedup/)，所以最终选择了科大。
-
-如果你发现有任何问题，请与我联系。谢谢！
-
-VERSION
-===
+<a name="changelog"></a>
+## 更新记录
 - 0.1 首次发布
 - 0.1.1 根据Mozilla reviewer的建议，使用tab模块来关闭Observer
 - 0.1.2 当FF中打开并关闭一个tab后，无法跳转链接，原因是关闭Observer的方式不对。现改用windows模块来关闭Observer
@@ -110,9 +107,10 @@ VERSION
 - 0.7 在工具栏添加gooreplacer图标，发布正式版
 - 0.8 重定向支持正则表达式，支持隐私模式
 - 0.9 重构自定义界面，支持规则编辑功能
+- 1.0 支持在线规则
 - ...
 - 更多功能，等你来开发 
 
-License
-===
+## License
+
 [MIT License](http://liujiacai.net/license/MIT.html?year=2015) © Jiacai Liu
