@@ -28,10 +28,8 @@ function findRedirectUrl(requestURL, jsonRules) {
                         redirectURL = redirectURL.replace("$" + (i + 1), redirectMatch[i]);
                     }
                 }
+                return redirectURL;
             }
-            return redirectURL;
-        } else {
-            return null;
         }
     }
 }

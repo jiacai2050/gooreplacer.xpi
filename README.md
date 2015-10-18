@@ -26,8 +26,10 @@
 2. https://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js
 3. http://fonts.googleapis.com/css?family=Open+Sans
 4. http://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js
+5. http://platform.twitter.com/widgets.js
+6. https://platform.twitter.com/widgets.js
 
-如果能转到`lug.ustc.edu.cn`相应的资源即说明重定向成功。
+如果能转到`lug.ustc.edu.cn`或`raw.githubusercontent.com`相应的资源即说明重定向成功。
 
 <a name="diy"></a>
 ## 自定义规则说明

@@ -6,7 +6,7 @@
   "author": "liujiacai",
   "homepage": "http://liujiacai.net/gooreplacer",
   "license": "MIT",
-  "version": "1.0",
+  "version": "1.0.1",
   "permissions": {"private-browsing": true},
   "preferences": [{
       "name": "isRedirect",
