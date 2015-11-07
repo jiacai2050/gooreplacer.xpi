@@ -2,7 +2,7 @@ const { setTimeout, setInterval, clearInterval} = require("sdk/timers");
 const { XMLHttpRequest } = require("sdk/net/xhr");
 
 var gooDB = require("./db"),
-    GooRule = require("./GooRule");
+    GooRule = require("../data/js/GooRule");
 
 var online = gooDB.getOnlineURL(),
  onlineURL = online.url,

@@ -4,11 +4,6 @@ var db = require("./db");
 var sync = require("./sync");
 var online = require("./updateOnlineRules");
 
-const {Loader, resolveURI} = require('toolkit/loader');
-const options = require('@loader/options');
-const loader = Loader(options);
-var GooRuleURI = resolveURI("./GooRule", loader.mapping);
-
 function initOptionPage(worker) {
     worker.port.emit("init", {
         localRules: db.getRules(), 
@@ -20,7 +15,7 @@ exports.tabOptions = {
     url : data.url("option.html"),
     onReady : function(tab) {
         var worker = tab.attach({
-            contentScriptFile: [data.url("js/jquery-1.6.2.min.js"), GooRuleURI, data.url("js/option.js")]
+            contentScriptFile: [data.url("js/jquery-1.6.2.min.js"), data.url("js/GooRule.js"), data.url("js/option.js")]
         });
         worker.port.on("add", function(rule) {
             db.addRule(rule);

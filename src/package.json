@@ -8,6 +8,7 @@
   "license": "MIT",
   "version": "1.0.1",
   "permissions": {"private-browsing": true},
+  "main": "lib/main.js",
   "preferences": [{
       "name": "isRedirect",
       "title": "开启重定向",
@@ -25,5 +26,23 @@
     "name": "defaultDir",
     "title": "default directory for export/import",
     "hidden": true
+  }, {
+    "name": "rules",
+    "title": "rules",
+    "type": "string",
+    "value": "{}"
+  }, {
+    "name": "onlineRules",
+    "title": "onlineRules",
+    "type": "string",
+    "value": "{}"
+  }, {
+    "name": "onLineRulesURL",
+    "title": "onLineRulesURL",
+    "type": "string"
+  }, {
+    "name": "onlineLastUpdateTime",
+    "title": "onlineLastUpdateTime",
+    "type": "string"
   }]
 }
