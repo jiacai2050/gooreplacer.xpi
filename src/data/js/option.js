@@ -243,7 +243,7 @@ function initRules(initJson) {
     $("#onlineSave").click(function() {
         var url = $("#onlineURL").val();
         var interval = $("#onlineInterval").val();
-        var enable = $("#onlineEnable").val();
+        var enable = $("#onlineEnable").val() === "true";
         self.port.emit("onlineSave", {
             url: url,
             interval: interval,

@@ -7,5 +7,5 @@ cd $bin
 if [ -f gooreplacer.xpi ];then
     rm gooreplacer.xpi
 fi
-cfx --pkgdir="$bin/src" xpi
-wget --post-file=gooreplacer.xpi http://localhost:8888
+cd src
+jpm watchpost --post-url http://localhost:8888/

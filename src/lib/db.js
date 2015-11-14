@@ -10,7 +10,7 @@ var gooDB = new(function() {
     var ONLINE_URL_KEY = "onlineRulesURL",
         online_url = {
             url: "https://raw.githubusercontent.com/jiacai2050/gooreplacer4chrome/master/gooreplacer.gson",
-            interval: 5,
+            interval: 15,
             enable: true
         };
     var LAST_UPDATE_KEY = "onlineLastUpdateTime";

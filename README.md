@@ -74,15 +74,13 @@ Firefox 的附加组件（add-on）与 Chrome 的相比开发难度大些，文�
 
 这里介绍下开发 gooreplacer 时的环境，希望对想开发 Firefox 附加组件的同学有所帮助。
 
-[MDN](https://developer.mozilla.org/en-US/Add-ons)介绍了三种开发方式，我这里用的是官方推荐的`Add-on SDK`方式。我开发 gooreplacer 用的是基于 python 的[cfx](https://developer.mozilla.org/en-US/Add-ons/SDK/Tools/cfx)，现在官方推荐使用基于 nodejs 的 [jpm](https://developer.mozilla.org/en-US/Add-ons/SDK/Tools/jpm)，大家可以根据自己的情况选择。下面介绍下`cfx`的安装。
+[MDN](https://developer.mozilla.org/en-US/Add-ons)介绍了三种开发方式，我这里用的是官方推荐的`Add-on SDK`方式。最初我开发 gooreplacer 用的是基于 python 的[cfx](https://developer.mozilla.org/en-US/Add-ons/SDK/Tools/cfx)，现在官方推荐使用基于 nodejs 的 [jpm](https://developer.mozilla.org/en-US/Add-ons/SDK/Tools/jpm)，现在我已经迁移至`jpm`。`jpm`的安装比较简单，一行命令搞定
+```
+npm install jpm --global
+```
+我在开发 gooreplacer 常用的命令也就是`jpm run`、`jpm xpi`这两个命令。
 
-1. 下载[addon SDK](https://github.com/mozilla/addon-sdk/archive/1.17.zip)，目前 github 上最新版为 1.7。
-2. 解压后 zip 文件后，进入`addon-sdk-1.17`文件夹
-3. 激活相关环境变量，`source bin/activate`
-
-经过上面三步，`cfx` 环境就已经搭建好了，我在开发 gooreplacer 常用的命令也就是`cfx run`、`cfx xpi`这两个命令。
-
-为了方便测试，使用了[Extension Auto-Installer](https://addons.mozilla.org/en-US/firefox/addon/autoinstaller/)这个附加组件，它能够在命令行里面安装、更新插件，对开发来说很是必要。我封装了个脚本[dev.sh](dev.sh)，大家可以参考
+为了方便测试，使用了[Extension Auto-Installer](https://addons.mozilla.org/en-US/firefox/addon/autoinstaller/)这个附加组件，它能够在命令行里面安装、更新插件，对开发来说很是必要。我封装了个脚本 [debug.sh](debug.sh)，大家可以参考
 
 
 如果你在开发时有什么问题，欢迎和我交流，希望和大家一起进步。
@@ -91,7 +89,8 @@ Firefox 的附加组件（add-on）与 Chrome 的相比开发难度大些，文�
 ## 注意事项
 
 - 因本扩展使用的[redirectTo](https://developer.mozilla.org/en-US/docs/Mozilla/Tech/XPCOM/Reference/Interface/nsIHttpChannel#redirectTo%28%29)方法限制，只支持[Firefox 20及以上](https://developer.mozilla.org/en-US/docs/Mozilla/Gecko/Versions)的版本。
-- v0.7增加工具栏图标的API只支持[Firefox 29及以上版本](https://developer.mozilla.org/en-US/Add-ons/SDK/Tutorials/Adding_a_Button_to_the_Toolbar)。
+- v0.7 增加工具栏图标的API只支持[Firefox 29及以上版本](https://developer.mozilla.org/en-US/Add-ons/SDK/Tutorials/Adding_a_Button_to_the_Toolbar)。
+- v1.2 之后使用`jpm`进行打包，根据[官方文档](https://developer.mozilla.org/en-US/Add-ons/SDK/Tools/jpm)，`jpm` 只支持 Firefox 38 及以后版本。
 
 <a name="changelog"></a>
 ## 更新记录
@@ -110,6 +109,8 @@ Firefox 的附加组件（add-on）与 Chrome 的相比开发难度大些，文�
 - 0.8 重定向支持正则表达式，支持隐私模式
 - 0.9 重构自定义界面，支持规则编辑功能
 - 1.0 支持在线规则
+- 1.1 bug fix
+- 1.2 Merge [Use simple-prefs instead of simple-storage for saving rules](https://github.com/jiacai2050/gooreplacer/pull/16)，解决重启时失效问题
 - ...
 - 更多功能，等你来开发 
 
