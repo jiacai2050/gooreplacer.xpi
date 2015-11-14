@@ -1,85 +1,77 @@
-var pfs = require("sdk/simple-prefs").prefs;
-const ss = require("sdk/simple-storage");
-const { merge } = require("sdk/util/object");
+const config = require("sdk/simple-prefs");
+const prefs = config.prefs;
 
-var GooRuleObj = require("../data/js/GooRule");
+var updater = require("./updateOnlineRules"),
+    GooRule = require("./GooRule");
 
 var gooDB = new(function() {
-    var RULES_KEY = "rules",
-        ISREDIRECT_KEY = "isRedirect";
-    var ONLINE_URL_KEY = "onlineRulesURL",
-        online_url = {
-            url: "https://raw.githubusercontent.com/jiacai2050/gooreplacer4chrome/master/gooreplacer.gson",
-            interval: 15,
-            enable: true
-        };
-    var LAST_UPDATE_KEY = "onlineLastUpdateTime";
-    var ONLINE_RULES_KEY = "onlineRules";
-    var migrateFromSS = function (name) {
-        if (ss.storage[name]) {
-            pfs[name] = JSON.stringify(ss.storage[name]);
-            delete ss.storage[name];
-        }
-    };
-    this.init = function() {
-        migrateFromSS(ONLINE_URL_KEY);
-        migrateFromSS(ONLINE_RULES_KEY);
-        migrateFromSS(RULES_KEY);
-        migrateFromSS(LAST_UPDATE_KEY);
-
-        if (!pfs[ONLINE_URL_KEY]) {
-            pfs[ONLINE_URL_KEY] = JSON.stringify(online_url);
-        }
-        if (!pfs[RULES_KEY]) {
-            pfs[RULES_KEY] = '{}';
+    var that = this;
+    var ISREDIRECT_KEY = "isRedirect";
+        ONLINE_URL_KEY = "onlineRulesURL",
+        UPDATE_INTERVAL_KEY = "updateInterval",
+        UPDATE_NOW_KEY = "updateNow",
+        LAST_UPDATE_KEY = "onlineLastUpdateTime",
+        ONLINE_RULES_KEY = "onlineRules";
+    
+    this.init = function(goobserver) {
+        config.on(UPDATE_NOW_KEY, function() {
+            that.updateRules();
+        });
+        config.on(UPDATE_INTERVAL_KEY, function() {
+            updater.updateTask(that.getOnlineURL(), that.getUpdateInterval());
+        });
+        config.on(ISREDIRECT_KEY, function() {
+            if(prefs[ISREDIRECT_KEY]) {
+                goobserver.register();
+            } else {
+                goobserver.unregister();
+            }
+        });
+        that.updateRules();
+    }
+    this.addJsonRule = function(jsonRules) {
+        for (var key in jsonRules) {
+            that.addRule(new GooRule(key, jsonRules[key]));
         }
     }
     this.getOnlineURL = function() {
-        return JSON.parse(pfs[ONLINE_URL_KEY]);
+        return prefs[ONLINE_URL_KEY];
     }
-    this.setOnlineURL = function(onlineURL) {
-        pfs[ONLINE_URL_KEY] = JSON.stringify(onlineURL);
+    this.getUpdateInterval = function() {
+        return prefs[UPDATE_INTERVAL_KEY];
     }
     this.getLastUpdateTime = function() {
-        return pfs[LAST_UPDATE_KEY] ? parseInt(pfs[LAST_UPDATE_KEY], 10) : 0;
+        return prefs[LAST_UPDATE_KEY];
     }
     this.setLastUpdateTime = function(updateTime) {
-        pfs[LAST_UPDATE_KEY] = updateTime.toString();
+        prefs[LAST_UPDATE_KEY] = updateTime;
     }
-    this.getRules = function(db) {
-        var db = db || RULES_KEY;
-        if (pfs[db]) {
-            return JSON.parse(pfs[db]);
-        } else {
-            return {};
-        }
+    this.getRules = function() {
+        return JSON.parse(prefs[ONLINE_RULES_KEY]);
     }
-    this.addRule = function(jsonRule, db) {
-        var db = db || RULES_KEY;
-        var rules = this.getRules(db);
-        merge(rules, jsonRule);
-        pfs[db] = JSON.stringify(rules);
+    this.addRule = function(gooRule) {
+        var rules = that.getRules(ONLINE_RULES_KEY);
+        rules[gooRule.getSrcURLLabel()] = gooRule.getValue();
+        prefs[ONLINE_RULES_KEY] = JSON.stringify(rules);
     }
-    this.deleteRule = function(ruleKey, db) {
-        var db = db || RULES_KEY;
+    this.deleteRule = function(ruleKey) {
         if (ruleKey) {
-            var rules = this.getRules(db);
+            var rules = this.getRules(ONLINE_RULES_KEY);
             delete rules[ruleKey];
-            pfs[db] = JSON.stringify(rules);
+            prefs[ONLINE_RULES_KEY] = JSON.stringify(rules);
         } else {
             //如果 ruleKey == null， 清空之前的所有规则
-            pfs[db] = '{}';
+            prefs[ONLINE_RULES_KEY] = '{}';
         }
     }
-    this.updateRule = function(ruleKey, jsonRule, db) {
-        this.deleteRule(ruleKey, db);
-        this.addRule(jsonRule, db);
-    }
-    this.toggleRule = function(ruleKey, db) {
-        var rules = this.getRules(db);
-        var gooRule = rules.ruleKey;
-        gooRule["enable"] = ! gooRule["enable"];
-        return gooRule["enable"];
+    this.updateRules = function() {
+        updater.updateRules(that.getOnlineURL(), function(ret) {
+            if (ret.code === 0) {
+                that.deleteRule(null);
+                that.addJsonRule(ret.data);
+                that.setLastUpdateTime(new Date().toLocaleString());
+            };
+        });    
     }
 });
 module.exports = gooDB;

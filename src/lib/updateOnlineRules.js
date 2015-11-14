@@ -1,25 +1,9 @@
 const { setTimeout, setInterval, clearInterval} = require("sdk/timers");
 const { XMLHttpRequest } = require("sdk/net/xhr");
 
-var gooDB = require("./db"),
-    GooRule = require("../data/js/GooRule");
+var updateTask = null;
 
-var online = gooDB.getOnlineURL(),
- onlineURL = online.url,
-  interval = online.interval * 60 * 1000;
-
-
-var updateTask = setInterval(function() {
-    fetchRules();
-}, interval);
-
-if (0 === interval) {
-    setTimeout(function() {
-        fetchRules();
-    }, 5000);
-}
-
-function fetchRules(cb) {
+function fetchRules(onlineURL, cb) {
     cb = cb || function() {};
     if (onlineURL.trim() !== "") {
         var xhr = new XMLHttpRequest();
@@ -28,13 +12,7 @@ function fetchRules(cb) {
             if (xhr.readyState === 4) {
                 if (xhr.status === 200) {
                     var jsonRules = JSON.parse(xhr.responseText).rules;
-                    var db = "onlineRules";
-                    gooDB.deleteRule(null, db);
-                    for (var key in jsonRules) {
-                        gooDB.addRule(new GooRule(key, jsonRules[key]).toJson(), db);
-                    }
-                    gooDB.setLastUpdateTime(Date.now());
-                    cb({msg: "更新成功！", code: 0});
+                    cb({msg: "更新成功！", code: 0, data: jsonRules});
                 } else {
                     cb({msg: "更新失败！", code: xhr.status});
                 }
@@ -43,13 +21,18 @@ function fetchRules(cb) {
         xhr.send();
     }
 }
-exports.saveUpdateTask = function(interval) {
-    clearInterval(updateTask);
-    interval = interval * 60 * 1000;
-    updateTask = setInterval(function() {
-        fetchRules();
-    }, interval);
+exports.updateTask = function(onlineURL, interval, cb) {
+    if(updateTask) {
+        clearInterval(updateTask);    
+    }
+    if(interval !== 0) {
+        interval = interval * 60 * 1000;
+        updateTask = setInterval(function() {
+            fetchRules(onlineURL, cb);
+        }, interval);    
+    }
+    
 }
-exports.updateRules = function(cb) {
-    fetchRules(cb);
+exports.updateRules = function(onlineURL, cb) {
+    fetchRules(onlineURL, cb);
 }

@@ -1,13 +1,12 @@
 {
-  "name": "gooreplacer",
+  "name": "gooreplacer4android",
   "title": "gooreplacer",
-  "id": "gooreplacer@liujiacai.net",
+  "id": "gooreplacer4android@liujiacai.net",
   "description": "一个用于替换网页中Google Fonts/API/themes等的Firefox插件，让你快速打开引用这些资源的页面",
   "author": "liujiacai",
   "homepage": "http://liujiacai.net/gooreplacer",
   "license": "MIT",
-  "version": "1.2",
-  "permissions": {"private-browsing": true},
+  "version": "1.0.0",
   "main": "lib/main.js",
   "preferences": [{
       "name": "isRedirect",
@@ -16,38 +15,30 @@
       "type": "bool",
       "value": false
   }, {
-    "name": "setting",
-    "title": "根据自己的需求，进行自定义规则",
+    "name": "onlineRulesURL",
+    "type": "string",
+    "title": "在线URL",
+    "value": "http://localhost:4000/"
+  }, {
+    "name": "updateInterval",
+    "title": "更新频率（单位：分钟）",
+    "description": "设置为0，停止更新",
+    "type": "integer",
+    "value": 15
+  }, {
+    "name": "updateNow",
+    "title": "立即更新规则",
     "type": "control",
-    "label": "开始自定义",
-    "description": "为了保证您的上网安全，请确保重定向资源安全可靠"
+    "label": "更新"
   }, {
-    "name": "defaultDir",
-    "title": "default directory for export/import",
-    "type": "string",
-    "hidden": true
-  }, {
-    "name": "rules",
-    "title": "本地规则",
-    "type": "string",
-    "value": "{}",
-    "hidden": true
+    "name": "onlineLastUpdateTime",
+    "title": "规则最后一次更新时间",
+    "type": "string"
   }, {
     "name": "onlineRules",
     "title": "在线规则",
     "type": "string",
     "value": "{}",
-    "hidden": true
-  }, {
-    "name": "onLineRulesURL",
-    "type": "string",
-    "title": "在线URL",
-    "hidden": true
-    
-  }, {
-    "name": "onlineLastUpdateTime",
-    "title": "在线规则最后一次更新时间",
-    "type": "string",
     "hidden": true
   }]
 }
