@@ -4,8 +4,7 @@ const { Class } = require("sdk/core/heritage");
 const { newURI } = require('sdk/url/utils');
 
 var gooDB = require("./db");
-var GooRule = require("./GooRule");
-
+var GooRule = require("../data/js/GooRule");
 gooDB.init();
 
 var contractID = '@mozilla.org/observer-service;1';
@@ -39,17 +38,17 @@ var goorepalcerObserver = Class({
     topic: 'http-on-modify-request',
     register: function() {
         observerService.addObserver(this, this.topic, false);
-    },  
+    },
     unregister: function() {
         observerService.removeObserver(this, this.topic);
-    },  
+    },
     observe: function(subject, topic, data) {
         var httpChannel = subject.QueryInterface(Ci.nsIHttpChannel);
         var requestURL = httpChannel.URI.spec;
 
         // 1. 检查本地自定义规则
         var gooRules = gooDB.getRules();
-        
+
         var redirectURL = findRedirectUrl(requestURL, gooRules);
         if (redirectURL) {
             httpChannel.redirectTo(newURI(redirectURL));
@@ -59,7 +58,7 @@ var goorepalcerObserver = Class({
         // 2. 检查在线URL所定义规则
         if (onlineURL.enable) {
             var gooRules = gooDB.getRules("onlineRules");
-            
+
             var redirectURL = findRedirectUrl(requestURL, gooRules);
             if (redirectURL) {
                 httpChannel.redirectTo(newURI(redirectURL));
