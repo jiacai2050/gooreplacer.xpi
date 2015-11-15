@@ -18,7 +18,7 @@
     "name": "onlineRulesURL",
     "type": "string",
     "title": "在线URL",
-    "value": "http://localhost:4000/"
+    "value": "https://raw.githubusercontent.com/jiacai2050/gooreplacer4chrome/master/gooreplacer.gson"
   }, {
     "name": "updateInterval",
     "title": "更新频率（单位：分钟）",
