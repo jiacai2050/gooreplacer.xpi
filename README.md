@@ -5,7 +5,7 @@
 一个用于替换网页中Google Fonts,API,themes等的Firefox插件，让你快速打开这些页面！
 
 - [Chrome 版](https://github.com/jiacai2050/gooreplacer4chrome)
-- [Firefox 版](https://github.com/jiacai2050/gooreplacer)
+- [Firefox 桌面版](https://github.com/jiacai2050/gooreplacer)
 
 ## License
 
