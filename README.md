@@ -74,7 +74,12 @@
 
 That's all, Happy Hack ！😊
 
-安装过程有什么问题可以提 [issue](https://github.com/jiacai2050/gooreplacer/issues)
+安装过程有什么问题可以提 [issue](https://github.com/jiacai2050/gooreplacer/issues)，我会尽快响应。
+
+## 开发参考
+
+- [Mobile Add-on development using the Add-on SDK](https://blog.mozilla.org/addons/2012/02/06/mobile-add-on-development-using-the-add-on-sdk/)
+- [Developing for Firefox Mobile](https://developer.mozilla.org/en-US/Add-ons/SDK/Tutorials/Mobile_development)
 
 ## License
 
