@@ -1,4 +1,4 @@
-const { Ci, Cu, Cc, Cr } = require('chrome');
+const { Ci, Cc } = require('chrome');
 const xpcom = require("sdk/platform/xpcom");
 const { Class } = require("sdk/core/heritage");
 const { newURI } = require('sdk/url/utils');
