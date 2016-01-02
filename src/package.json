@@ -6,7 +6,7 @@
   "author": "liujiacai",
   "homepage": "http://liujiacai.net/gooreplacer",
   "license": "MIT",
-  "version": "1.2",
+  "version": "1.2.1",
   "permissions": {"private-browsing": true},
   "main": "lib/main.js",
   "preferences": [{

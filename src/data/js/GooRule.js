@@ -13,7 +13,8 @@ var GooRule = function(srcURL, dstObj) {
     };
     this.kind   = dstObj.kind || WILDCARD; //规则默认为WILDCARD类型
     this.dstURL = dstObj.dstURL;
-    this.enable = dstObj.enable || true;   //规则默认开启
+    this.enable = dstObj.hasOwnProperty("enable")? dstObj.enable : true;   //规则默认开启
+
     this.isWildcard = function() {
         return this.kind === WILDCARD;
     }

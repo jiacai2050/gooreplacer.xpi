@@ -76,10 +76,11 @@ var gooDB = new(function() {
         this.addRule(jsonRule, db);
     }
     this.toggleRule = function(ruleKey, db) {
+        var db = db || RULES_KEY;
         var rules = this.getRules(db);
-        var gooRule = rules.ruleKey;
+        var gooRule = rules[ruleKey];
         gooRule["enable"] = ! gooRule["enable"];
-        return gooRule["enable"];
+        pfs[db] = JSON.stringify(rules);
     }
 });
 module.exports = gooDB;

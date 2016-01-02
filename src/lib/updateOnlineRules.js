@@ -4,9 +4,8 @@ const { XMLHttpRequest } = require("sdk/net/xhr");
 var gooDB = require("./db"),
     GooRule = require("../data/js/GooRule");
 
-var online = gooDB.getOnlineURL(),
- onlineURL = online.url,
-  interval = online.interval * 60 * 1000;
+var online   = gooDB.getOnlineURL(),
+    interval = online.interval * 60 * 1000;
 
 
 var updateTask = setInterval(function() {
@@ -21,6 +20,7 @@ if (0 === interval) {
 
 function fetchRules(cb) {
     cb = cb || function() {};
+    var onlineURL = gooDB.getOnlineURL().url;
     if (onlineURL.trim() !== "") {
         var xhr = new XMLHttpRequest();
         xhr.open("GET", onlineURL, true);
